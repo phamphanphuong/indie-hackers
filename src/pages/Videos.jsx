@@ -1,14 +1,12 @@
 import { useState, useMemo } from 'react';
 import Fuse from 'fuse.js';
+import videos from '../data/videos.json';
 
-const videos = [
-  { id: 'bQJOkQ2VyLc', title: 'Video 1' },
-  { id: 'Ur87_TSyP-A', title: 'Video 2' },
-  { id: '-WGqCmeu2E8', title: 'Video 3' },
-];
-
+import { useRef } from 'react';
 export default function Videos() {
+  const [selected, setSelected] = useState(null);
   const [searchTerm, setSearchTerm] = useState('');
+  const playerRef = useRef(null);
 
   const fuse = useMemo(
     () =>
@@ -24,43 +22,74 @@ export default function Videos() {
     return fuse.search(searchTerm).map((result) => result.item);
   }, [searchTerm, fuse]);
 
+  const handleSelect = (video) => {
+    setSelected(video);
+    setTimeout(() => {
+      if (playerRef.current) {
+        playerRef.current.scrollIntoView({
+          behavior: 'smooth',
+          block: 'center',
+        });
+      }
+    }, 100);
+  };
+
   return (
-    <>
-      <div>
-        <h1 className="text-3xl font-bold mb-4">Videos</h1>
+    <div>
+      <h1 className="text-3xl font-bold mb-4">
+        Danh sách video Indie Hacker Việt Nam
+      </h1>
 
-        <div className="mb-6">
-          <input
-            type="text"
-            placeholder="Tìm kiếm video..."
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-            className="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-slate-700 bg-white dark:bg-slate-950 text-gray-900 dark:text-slate-50"
-          />
-        </div>
-
-        <VideoGrid videos={filteredVideos} />
-
-        {filteredVideos.length === 0 && searchTerm && (
-          <p className="text-gray-600 dark:text-slate-400 mt-4">
-            Không tìm thấy video nào.
-          </p>
-        )}
+      <div className="mb-6">
+        <input
+          type="text"
+          placeholder="Tìm kiếm video..."
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+          className="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-slate-700 bg-white dark:bg-slate-950 text-gray-900 dark:text-slate-50"
+        />
       </div>
-    </>
+
+      <VideoGrid videos={filteredVideos} onSelect={handleSelect} />
+
+      {filteredVideos.length === 0 && searchTerm && (
+        <p className="text-gray-600 dark:text-slate-400 mt-4">
+          Không tìm thấy video nào.
+        </p>
+      )}
+
+      {selected && (
+        <div className="mt-8" ref={playerRef}>
+          <h2 className="text-xl font-semibold mb-2">
+            Đang phát: {selected.title}
+          </h2>
+          <div className="aspect-video w-full max-w-2xl mx-auto">
+            <iframe
+              width="100%"
+              height="100%"
+              src={`https://www.youtube.com/embed/${selected.id}?autoplay=1`}
+              title={selected.title}
+              frameBorder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowFullScreen
+              className="rounded-xl w-full h-full"
+            ></iframe>
+          </div>
+        </div>
+      )}
+    </div>
   );
 }
 
-function VideoGrid({ videos }) {
+function VideoGrid({ videos, onSelect }) {
   return (
     <div className="grid md:grid-cols-3 gap-6">
       {videos.map((v) => (
-        <a
+        <button
           key={v.id}
-          href={'https://youtube.com/watch?v=' + v.id}
-          target="_blank"
-          rel="noreferrer"
-          className="group"
+          type="button"
+          onClick={() => onSelect(v)}
+          className="group text-left w-full"
         >
           <div className="rounded-2xl overflow-hidden bg-white dark:bg-slate-900 border border-gray-200 dark:border-slate-800 shadow-soft relative">
             <img
@@ -83,7 +112,7 @@ function VideoGrid({ videos }) {
           <div className="mt-2 text-sm text-gray-900 dark:text-slate-100">
             {v.title}
           </div>
-        </a>
+        </button>
       ))}
     </div>
   );

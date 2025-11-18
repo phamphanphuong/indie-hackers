@@ -32,12 +32,12 @@ export default function Navbar() {
           <NavLink to="/videos" className={linkBase}>
             Videos
           </NavLink>
-          <NavLink to="/vn30-bot" className={linkBase}>
+          {/* <NavLink to="/vn30-bot" className={linkBase}>
             VN30 Bot
           </NavLink>
           <NavLink to="/projects" className={linkBase}>
             Projects
-          </NavLink>
+          </NavLink> */}
           <NavLink to="/about" className={linkBase}>
             About
           </NavLink>

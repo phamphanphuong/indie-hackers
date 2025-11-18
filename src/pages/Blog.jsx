@@ -19,16 +19,6 @@ const posts = [
     desc: 'Growth là kỹ năng quan trọng nhất của indie hacker. Trong video này, mình sẽ chia sẻ hệ thống marketing đã giúp mình thu hút 1000+ users mà không tốn tiền quảng cáo. Từ content marketing đến community building, mình sẽ cover tất cả.',
   },
   {
-    slug: 'post4',
-    title: 'Tên Bài Viết Mới',
-    desc: 'Nội dung bài viết...',
-  },
-  {
-    slug: 'post5',
-    title: 'Tên Bài Viết Mới',
-    desc: 'Nội dung bài viết...',
-  },
-  {
     slug: 'post6',
     title: 'Hành Trình Indie Hacker Việt Nam: Từ Con Số 0 Đến Kiếm Được 10.000$/Tháng',
     desc: 'Xin chào mọi người! Mình là một developer Việt Nam đã quyết định theo đuổi con đường Indie Hacker - xây dựng sản phẩm nhỏ, kiếm tiền online và sống cuộc sống chủ động. Hôm nay mình muốn chia sẻ hành trình 2 năm của mình, từ một developer lương thấp đến kiếm được thu nhập thụ động đều đặn.',

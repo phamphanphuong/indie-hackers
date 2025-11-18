@@ -15,7 +15,6 @@ export default function App() {
   return (
     <ErrorBoundary>
       <BrowserRouter
-        basename="/indie-hacker-vn"
         future={{ v7_startTransition: true, v7_relativeSplatPath: true }}
       >
         <Layout>

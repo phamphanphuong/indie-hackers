@@ -14,7 +14,7 @@ export default function BlogPost() {
     console.log('Fetching', slug);
     setLoading(true);
     setError(null);
-    fetch('/indie-hacker-vn/blog/' + slug + '.md')
+    fetch('/blog/' + slug + '.md')
       .then((r) => {
         console.log('Fetch response', r);
         if (!r.ok) throw new Error('Không tìm thấy bài viết');
