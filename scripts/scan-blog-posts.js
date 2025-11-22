@@ -5,9 +5,58 @@ const fs = require('fs');
 const path = require('path');
 
 const blogDir = path.join(__dirname, '..', 'public', 'blog');
+const videosPath = path.join(__dirname, '..', 'src', 'data', 'videos.json');
 const blogJsxPath = path.join(__dirname, '..', 'src', 'pages', 'Blog.jsx');
 
 console.log('🔍 Scanning blog posts...');
+
+// Đọc videos.json
+const videos = JSON.parse(fs.readFileSync(videosPath, 'utf8'));
+
+// Tạo thư mục blog nếu chưa có
+if (!fs.existsSync(blogDir)) {
+  fs.mkdirSync(blogDir, { recursive: true });
+}
+
+// Tạo file .md từ videos.json nếu chưa có đủ
+videos.forEach((video, index) => {
+  const slug = `video${index + 1}`;
+  const filename = `${slug}.md`;
+  const filePath = path.join(blogDir, filename);
+
+  if (!fs.existsSync(filePath)) {
+    const title = video.title;
+    const videoId = video.id;
+    const description = video.description || title;
+
+    const content = `# ${title}
+
+## Giới thiệu
+
+${description}
+
+<div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; max-width: 100%; margin: 2rem 0;">
+  <iframe
+    src="https://www.youtube.com/embed/${videoId}"
+    style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0;"
+    allowfullscreen
+    title="${title}">
+  </iframe>
+</div>
+
+## Nội dung chính
+
+[Xem video đầy đủ trên YouTube](https://www.youtube.com/watch?v=${videoId})
+
+---
+
+_Bài viết được tạo tự động từ video YouTube._
+`;
+
+    fs.writeFileSync(filePath, content, 'utf8');
+    console.log(`📝 Created: ${filename}`);
+  }
+});
 
 // Đọc tất cả file .md trong thư mục blog
 const files = fs

@@ -1,8 +1,9 @@
 import googleapiclient.discovery
+import json
 
 def get_playlist_videos(api_key, playlist_id):
     """
-    Lấy ID và Tiêu đề của tất cả video trong một playlist.
+    Lấy ID, Tiêu đề và Mô tả của tất cả video trong một playlist.
 
     Args:
         api_key (str): Khóa API YouTube Data API v3 của bạn.
@@ -33,7 +34,17 @@ def get_playlist_videos(api_key, playlist_id):
             try:
                 video_id = item["snippet"]["resourceId"]["videoId"]
                 title = item["snippet"]["title"]
-                all_videos.append({"id": video_id, "title": title})
+                # Lấy description từ video details
+                video_request = youtube.videos().list(
+                    part="snippet",
+                    id=video_id
+                )
+                video_response = video_request.execute()
+                if video_response["items"]:
+                    description = video_response["items"][0]["snippet"]["description"]
+                else:
+                    description = ""
+                all_videos.append({"id": video_id, "title": title, "description": description})
             except KeyError:
                 # Bỏ qua các mục không phải là video (ví dụ: các mục đã bị xóa)
                 continue
@@ -53,8 +64,6 @@ PLAYLIST_ID = "PLJK9YNrTz_MIa6nuGky5147hI7fwlOBWA" # ID từ URL: https://youtub
 video_list = get_playlist_videos(YOUR_API_KEY, PLAYLIST_ID)
 
 # In kết quả
-
-import json
 if video_list:
     print("\n--- KẾT QUẢ ---")
     print(f"Tìm thấy {len(video_list)} video trong playlist.")

@@ -17,7 +17,7 @@ export default function Navbar() {
           </div>
           <div>
             <div className="font-semibold text-sm text-black dark:text-white">
-              Indie Hacker Việt Nam
+              Indie Hackers
             </div>
             <div className="text-[11px] text-gray-600 dark:text-slate-400">
               Build nhỏ • Kiếm tiền thật

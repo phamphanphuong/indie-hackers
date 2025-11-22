@@ -4,7 +4,7 @@ export default function About() {
       <div className="space-y-6">
         <h1 className="text-3xl font-bold">About</h1>
         <p className="text-gray-700 dark:text-slate-300">
-          Chào mừng bạn đến với Indie Hacker Việt Nam! Chúng tôi là cộng đồng
+          Chào mừng bạn đến với Indie Hackers Việt Nam! Chúng tôi là cộng đồng
           các developer Việt Nam tập trung vào việc xây dựng sản phẩm nhỏ, kiếm
           tiền online và sống cuộc sống chủ động.
         </p>

@@ -36,9 +36,7 @@ export default function Videos() {
 
   return (
     <div>
-      <h1 className="text-3xl font-bold mb-4">
-        Danh sách video Indie Hacker Việt Nam
-      </h1>
+      <h1 className="text-3xl font-bold mb-4">Danh sách video Indie Hackers</h1>
 
       <div className="mb-6">
         <input

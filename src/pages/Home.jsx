@@ -78,7 +78,7 @@ export default function Home() {
             {[
               {
                 slug: 'post1',
-                title: 'Hành trình Indie Hacker Việt Nam',
+                title: 'Hành trình Indie Hackers',
                 desc: 'Bắt đầu từ con số 0 và đi từng bước nhỏ.',
               },
               {
@@ -121,7 +121,7 @@ export default function Home() {
           </div>
         </section>
 
-        <section className="p-8 rounded-2xl bg-gray-50 dark:bg-slate-900/70 border border-gray-200 dark:border-slate-800 shadow-soft">
+        {/* <section className="p-8 rounded-2xl bg-gray-50 dark:bg-slate-900/70 border border-gray-200 dark:border-slate-800 shadow-soft">
           <h3 className="text-2xl font-bold mb-3">Nhận newsletter mỗi tuần</h3>
           <p className="text-gray-600 dark:text-slate-300 mb-4">
             Mỗi tuần một email ngắn gọn: case study, bài học và chiến lược dành
@@ -154,7 +154,7 @@ export default function Home() {
               Đăng ký
             </button>
           </form>
-        </section>
+        </section> */}
       </div>
     </>
   );
